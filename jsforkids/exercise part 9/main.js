@@ -9,10 +9,11 @@ friends.forEach((name) => {
     console.log($('p').text())
 });*/
 
-for (let i = 1; i < 6; i++) {
-    $('h1').fadeOut(1000).fadeIn(1000);
-
+for (let i = 1, count = 500; i < 6; i++) {
+    $('h1').fadeOut(count).fadeIn(count);
+    count += 500;
 }
-//$('p').hide().fadeIn(1000);
-//$('p')
+
+body.append('<p>text by hide within delay</p>')
+$('p').fadeTo(500, 0.2).delay(5000).fadeTo(500, 1);
 
