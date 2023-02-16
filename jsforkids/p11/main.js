@@ -12,9 +12,10 @@
 или «холодно».
 • Поздравить игрока, если он кликнул по кладу или вблизи
 него, и сообщить, сколько кликов ушло на поиски.*/
-let width = 400;
-let height = 400;
+let width = 800;
+let height = 800;
 let clicks = 0;
+let attempt = 50;
 
 const getRandomPoint = (maxSize) => {
     return Math.floor(Math.random() * maxSize);
@@ -33,20 +34,22 @@ const getDistance = (evt, target) => {
 
 
 const getDistanceHit = (distance) => {
-    if (distance < 8) {
+    if (distance < 10) {
         alert("Клад найден! Сделано кликов: " + clicks);
     }   
-    if (distance < 10) {
+    if (distance < 15) {
         return "Обожжешься!";
-    } else if (distance < 20) {
+    } else if (distance < 25) {
         return "Очень горячо";
-    } else if (distance < 40) {
+    } else if (distance < 50) {
         return "Горячо";
-    } else if (distance < 80) {
+    } else if (distance < 100) {
         return "Тепло";
-    } else if (distance < 160) {
-            return "Холодно";
-    } else if (distance < 320) {
+    } else if (distance < 200) {
+        return "Холодно";
+    } else if (distance < 420) {
+        return "Очень холодно";
+    } else if (distance < 600) {
         return "Очень холодно";
     } else {
         return "Замерзнешь!";
@@ -54,11 +57,15 @@ const getDistanceHit = (distance) => {
 
 }
 
-console.log($('p'));
 $('img').click((evt) => {
     clicks++
-    let distance = getDistance(evt, target);
-    $('p').text(getDistanceHit(distance));
-
-
+    if (attempt > 0) {
+        let distance = getDistance(evt, target);
+        console.log(distance);
+        $('p').text(getDistanceHit(distance ) + '. Remaining attemts: ' + attempt);
+    }
+    else {
+        $('p').text('Game over');
+    }
+    attempt--
 })
