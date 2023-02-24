@@ -13,37 +13,35 @@ Examples
 */
 function toUnderscore(string) {
     if (string == null) {
-      return 'null';
+        return 'null';
     }
-    if (typeof(string) == 'number') {
-      return string.toString();
-    }
-    else {
-      let resultArr = []; 
-      let word = '';
-      for (let i = 0; i < string.length; i++) {
-        if (i == 0) {
-          word = string[i].toLowerCase();
-        }  
-        else {
-          if (string[i] == string[i].toUpperCase() && i != 0) {
-            if (parseInt(string[i]) != string[i]) {
-              resultArr.push(word);
-              word = string[i].toLowerCase();
-            }        
-          }
-          if (string[i] == string[i].toLowerCase() && i != string.length - 1) {
-            word += string[i];
-          }
-          if (i == string.length - 1) {
-            word += string[i];
-            resultArr.push(word);
-          }
+    if (typeof (string) == 'number') {
+        return string.toString();
+    } else {
+        let resultArr = [];
+        let word = '';
+        for (let i = 0; i < string.length; i++) {
+            if (i == 0) {
+                word = string[i].toLowerCase();
+            } else {
+                if (string[i] == string[i].toUpperCase() && i != 0) {
+                    if (parseInt(string[i]) !== string[i]) {
+                        resultArr.push(word);
+                        word = string[i].toLowerCase();
+                    }
+                }
+                if (string[i] == string[i].toLowerCase() && i != string.length - 1) {
+                    word += string[i];
+                }
+                if (i == string.length - 1) {
+                    word += string[i];
+                    resultArr.push(word);
+                }
+            }
         }
-      }
-      return resultArr.join('_');
-    }    
-  }
+        return resultArr.join('_');
+    }
+}
 
 /*
 Exes and Ohs
@@ -65,16 +63,41 @@ function XO(str) {
     let amountX = 0;
     for (let i = 0; i < str.length; i++) {
         if (checkStr[i] == 'o') {
-        amountO++
+            amountO++
         }
         if (checkStr[i] == 'x') {
-        amountX++
-        }     
+            amountX++
+        }
     }
-    if (amountX == amountO ) {
+    if (amountX == amountO) {
         return true;
-    }
-    else {
+    } else {
         return false;
-    }  
+    }
+}
+
+/*
+Complete the function scramble(str1, str2) that returns true if a portion of str1 characters can be rearranged to match str2, otherwise returns false.
+
+Notes:
+
+Only lower case letters will be used (a-z). No punctuation or digits will be included.
+Performance needs to be considered.
+
+ */
+
+function scramble(str1, str2) {
+    let charIndex = {};
+    for (let i = 0; i < str2.length; i++) {
+        let fromIndex = -1;
+        if (charIndex.hasOwnProperty(str2[i])) {
+            fromIndex = charIndex[str2[i]];
+        }
+        let newIndex = str1.indexOf(str2[i], (fromIndex + 1));
+        if (newIndex >= 0) {
+            charIndex[str2[i]] = newIndex;
+        }
+        else return false;
+    }
+    return true;
 }
