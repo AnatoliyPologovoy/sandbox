@@ -101,3 +101,47 @@ function scramble(str1, str2) {
     }
     return true;
 }
+
+/*
+
+Valid string
+
+You are given a sequence of valid words and a string. Test if the string is made up by one or more words from the array.
+
+Task
+Test if the string can be entirely formed by consecutively concatenating words of the dictionary.
+
+For example:
+
+dictionary: ["code", "wars"]
+
+s1:         "codewars" =>  true  -> match 'code', 'wars'
+s2:         "codewar"  =>  false -> match 'code', unmatched 'war'
+One word from the dictionary can be used several times.
+ */
+
+
+var validWord = function(dictionary, word) {
+    let remainedWord = word;
+    const extraction = (remainedWord, arr) => {
+        arr.forEach((value) => {
+            let searchIndex = remainedWord.indexOf(value);
+            if (searchIndex >= 0) {
+                remainedWord = remainedWord.slice(0, searchIndex) + remainedWord.slice(searchIndex + value.length);
+            }
+        });
+        if (arr.some((value) => remainedWord.includes(value))) {
+            remainedWord = extraction(remainedWord, dictionary);
+        }
+        return remainedWord;
+    }
+    dictionary.sort((a,b) => b.length - a.length);
+    remainedWord = extraction(remainedWord, dictionary);
+    if (remainedWord.length === 0) return true;
+    else {
+        dictionary.sort((a,b) => a.length - b.length);
+        remainedWord = extraction(word, dictionary);
+        if (remainedWord.length === 0) return true;
+    }
+    return false;
+};
