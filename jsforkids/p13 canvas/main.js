@@ -63,6 +63,42 @@ const drawSnowMan = (x, y) => {
     circle(x + 20,y + 21, 2, true);
 }
 
-drawSnowMan(50,50);
+//drawSnowMan(50,50);
+
+/*#2. Рисование по массиву точек
+Напишите функцию drawPoints, которая принимает массив
+с координатами точек:
+var points = [[50, 50], [50, 100], [100, 100], [100, 50], [50, 50]];
+drawPoints(points);
+и рисует линию, соединяющую эти точки. В данном случае она
+должна прочертить линию от (50, 50) до (50, 100) и далее до (100,
+100), до (100, 50) и обратно до (50, 50).
+
+ */
+
+let points = [[50, 50], [50, 100], [100, 100], [100, 50], [50, 50]];
+let mysteryPoints = [[50, 50], [50, 100], [25, 120], [100, 50],
+    [70, 90], [100, 90], [70, 120]];
+
+const drawPoints = (arr) => {
+    if (arr) {
+        ctx.beginPath();
+        arr.forEach(([x, y], index) => {
+            if (index === 0) {
+                ctx.moveTo(x,y);
+            }
+            else {
+                ctx.lineTo(x,y);
+            }
+        })
+        ctx.stroke();
+    }
+}
+
+//drawPoints(points);
+ctx.strokeStyle = 'green';
+ctx.strokeWidth = 1;
+drawPoints(mysteryPoints);
+
 
 
